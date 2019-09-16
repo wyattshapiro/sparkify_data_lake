@@ -1,12 +1,3 @@
-<!-- .
-
-
-
-Each table includes the right columns and data types. Duplicates are addressed where appropriate.
-
-
- -->
-
 # Data Lake with Redshift for Sparkify
 
 ## Goal

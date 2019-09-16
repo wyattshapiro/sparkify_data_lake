@@ -100,14 +100,12 @@ def process_song_data(spark, input_bucket, output_bucket):
 
     # read song data file
     song_df = spark.read.json(input_song_data, schema=build_song_schema())
-    song_df.printSchema()
 
     # extract columns to create songs table
     songs_table = song_df.select('song_id', 'title', 'artist_id', 'year', 'duration')
 
     # write songs table to parquet files partitioned by year and artist
     songs_table_output = os.path.join(output_bucket, 'songs_table.parquet')
-    print(songs_table_output)
     songs_table.write.parquet(path=songs_table_output, mode='overwrite', partitionBy=['year', 'artist_id'])
 
     # extract columns to create artists table
@@ -115,7 +113,6 @@ def process_song_data(spark, input_bucket, output_bucket):
 
     # write artists table to parquet files
     artists_table_output = os.path.join(output_bucket, 'artists_table.parquet')
-    print(artists_table_output)
     artists_table.write.parquet(path=artists_table_output, mode='overwrite')
 
 
@@ -133,7 +130,6 @@ def process_log_data(spark, input_bucket, output_bucket):
 
     # read log data file
     log_df = spark.read.json(input_log_data, schema=build_log_schema())
-    log_df.printSchema()
 
     # filter by actions for song plays
     log_df = log_df.filter(col('page')=='Next Song')
